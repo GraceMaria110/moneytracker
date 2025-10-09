@@ -145,7 +145,7 @@ header h1 { margin-top: 20px; font-size: 28px; color: #e0e1dd; }
 
 
 /* ==== Popup ==== */
-.popup { display: none; position: fixed; bottom: 100px; left: 100px; background: #1b263b; border-radius: 10px; padding: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
+.popup { display: none; position: fixed; bottom: 100px; left: 100px; background: #1b263b; border-radius: 10px; padding: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.3);z-index: 9999;  }
 .popup-content button { background: #415a77; border: none; color: #e0e1dd; padding: 10px 20px; margin: 5px; border-radius: 6px; cursor: pointer; }
 .popup-content button:hover { background: #778da9; }
 
@@ -205,5 +205,6 @@ canvas {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
 
 
