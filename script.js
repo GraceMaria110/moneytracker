@@ -1,4 +1,3 @@
-// ===== Data =====
 let transactions = [];
 let chosenType = null;
 let streamList = ['Cash', 'UPI'];
