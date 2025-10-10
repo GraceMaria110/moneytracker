@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Money Tracker</title>
+<link rel="stylesheet" href="style.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+</head>
+<body>
+
+<!-- Sidebar Menu -->
+<div class="side-menu">
+  <div class="menu-icon">☰</div>
+  <div class="menu-items">
+    <button id="historyTab" class="active">History</button>
+    <button id="insightsTab">Insights</button>
+  </div>
+</div>
+
+<!-- Main Content Area -->
+<div class="main-content">
+
+  <header>
+    <h1>Money Tracker</h1>
+  </header>
+
+  <!-- Totals -->
+  <div id="totalsSection" class="totals">
+    <h2 id="grandTotal">Total: ₹0</h2>
+    <p>Cash: <span id="cashTotal">₹0</span> | UPI: <span id="upiTotal">₹0</span></p>
+  </div>
+
+  <!-- History Section -->
+  <section id="historySection">
+    <div class="table-container">
+      <table id="transactionsTable">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Category</th>
+            <th>Subcategory</th>
+            <th>Stream</th>
+            <th>Description</th>
+            <th>Amount</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Insights Section -->
+  <section id="chartsSection" class="charts" style="display:none;">
+    <div class="chart-card">
+      <h3>Expense Breakdown</h3>
+      <canvas id="expenseChart"></canvas>
+    </div>
+    <div class="chart-card">
+      <h3>Income vs Expense</h3>
+      <canvas id="incomeExpenseChart"></canvas>
+    </div>
+    <div class="chart-card">
+      <h3>Savings Breakdown</h3>
+      <canvas id="savingsChart"></canvas>
+    </div>
+  </section>
+
+  <!-- Floating Add Button -->
+  <button id="addBtn" class="floating-btn">+</button>
+
+  <!-- Popup to choose type -->
+  <div id="choicePopup" class="popup">
+    <div class="popup-content">
+      <h3>Add Transaction</h3>
+      <div class="choice-buttons">
+        <button id="chooseIncome">Income</button>
+        <button id="chooseExpense">Expense</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add Bar for data entry -->
+  <div id="addBar" class="add-bar">
+    <select id="category"><option>Category</option></select>
+    <input type="text" id="customCategory" placeholder="New Category" style="display:none;">
+    <select id="subcategory"><option>Subcategory</option></select>
+    <input type="text" id="customSubcategory" placeholder="New Subcategory" style="display:none;">
+    <select id="stream"><option>Stream</option></select>
+    <input type="text" id="customStream" placeholder="New Stream" style="display:none;">
+    <input type="number" id="amount" placeholder="Amount *" required>
+    <input type="text" id="description" placeholder="Description">
+    <input type="date" id="date">
+    <button id="saveTransaction">Save</button>
+    <button id="cancelBar">Cancel</button>
+  </div>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
