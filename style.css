@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /* ==== General Layout ==== */
 body {
   margin: 0;
@@ -209,3 +210,215 @@ canvas {
 }
 
 
+=======
+/* ==== General Layout ==== */
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background-color: #0d1b2a;
+  color: #e0e1dd;
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* Row background by type */
+.row-income { background-color: #2ecc71; }   /* green for income */
+.row-expense { background-color: #e63946; }  /* red for expense */
+
+/* All text in the row white by default */
+.row-income td, .row-expense td { color: white; }
+
+/* Override text color for specific streams */
+.stream-upi { color: #3498db !important; }   /* blue for UPI */
+.stream-cash { color: #ff4d4d !important; }  /* red for Cash */
+
+/* Optional hover effect */
+#transactionsTable tbody tr:hover { opacity: 0.9; }
+
+
+
+/* ==== Sidebar ==== */
+.side-menu {
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 60px;
+  background: #1b263b;
+  transition: width 0.3s ease;
+  overflow: hidden;
+  z-index: 100;
+}
+.side-menu:hover { width: 200px; }
+.menu-icon { font-size: 24px; padding: 20px; cursor: pointer; text-align: center; }
+.menu-items { display: flex; flex-direction: column; align-items: center; margin-top: 40px; }
+.menu-items button { background: none; color: #e0e1dd; border: none; width: 100%; padding: 12px; cursor: pointer; text-align: left; transition: background 0.3s; }
+.menu-items button:hover, .menu-items button.active { background: #415a77; }
+
+/* ==== Main Content ==== */
+.main-content {
+  flex: 1;
+  margin-left: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+  transition: margin-left 0.3s ease;
+}
+.side-menu:hover + .main-content { margin-left: 180px; }
+
+header h1 { margin-top: 20px; font-size: 28px; color: #e0e1dd; }
+
+.totals {
+  text-align: center;
+  background: #1b263b;
+  padding: 10px 20px;
+  border-radius: 10px;
+  margin: 10px;
+}
+
+/* ==== Table Section ==== */
+.table-container { 
+  overflow-x: auto; /* allow horizontal scroll if needed */
+  overflow-y: auto; 
+  max-height: 45vh; 
+  width: 100%; 
+  background: #1b263b; 
+  border-radius: 10px; 
+  padding: 10px; 
+}
+
+/* Force row background based on type */
+#transactionsTable tr.row-income { 
+  background-color: #3d923d !important;  /* green for income */ 
+  color: white !important;
+}
+
+/* Default text color for all cells in row */
+#transactionsTable tr.row-expense { 
+  background-color: #8f4a4f !important; /* red for expense */ 
+  color: white !important;
+}
+
+/* Override text color for stream column */
+#transactionsTable tr.row-income td.stream-upi,
+#transactionsTable tr.row-expense td.stream-upi {
+  color: #0f5e92 !important;   /* blue */
+}
+
+#transactionsTable tr.row-income td.stream-cash,
+#transactionsTable tr.row-expense td.stream-cash {
+  color: #6d0303 !important;   /* red */
+}
+
+/* Table general styling */
+#transactionsTable { 
+  width: 1350px;
+  min-width: 1000px;
+  border-collapse: collapse; 
+  table-layout: fixed;
+  font-size: 16px;
+  color: #f0f0f0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#transactionsTable th, 
+#transactionsTable td { 
+  padding: 12px 15px;
+  text-align: center;
+  white-space: nowrap;
+}
+
+/* Header */
+#transactionsTable thead { 
+  background: #415a77; 
+}
+
+
+/* ==== Floating Add Button ==== */
+/* Keep your existing styles */
+.floating-btn {
+  position: fixed; bottom: 15px; left: 100px; transform: none;
+  background: #778da9;
+  border: none;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  font-size: 30px;
+  color: #0d1b2a;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  transition: background 0.3s, left 0.3s, top 0.3s;
+  z-index: 150;
+}
+
+.floating-btn:hover { background: #e0e1dd; }
+
+
+/* ==== Popup ==== */
+.popup { display: none; position: fixed; bottom: 100px; left: 100px; background: #1b263b; border-radius: 10px; padding: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.3);z-index: 9999;  }
+.popup-content button { background: #415a77; border: none; color: #e0e1dd; padding: 10px 20px; margin: 5px; border-radius: 6px; cursor: pointer; }
+.popup-content button:hover { background: #778da9; }
+
+/* ==== Add Bar ==== */
+.add-bar {
+  position: fixed; bottom: 0; left: 50%; transform: translateX(-50%);
+  background: #1b263b; padding: 15px; display: flex; justify-content: center; align-items: center; gap: 12px;
+  width: 95%; border-top: 2px solid #415a77; border-radius: 10px 10px 0 0; display: none;
+  z-index: 9999; 
+}
+.add-bar select, .add-bar input {
+  padding: 10px; font-size: 16px; border: 1px solid #415a77; border-radius: 8px; background: #2e3b52; color: #e0e1dd; width: 150px;
+}
+.add-bar button { background: #778da9; border: none; color: #0d1b2a; padding: 10px 20px; border-radius: 8px; cursor: pointer; }
+.add-bar button:hover { background: #e0e1dd; }
+
+
+
+
+/* ==== Charts Section Horizontal ==== */
+#chartsSection {
+  width: 1350px; /* increased table width */
+  min-width: 1000px; /* optional minimum width */
+  border-collapse: collapse; 
+  table-layout: fixed; /* optional for equal column widths */
+}
+
+.charts {
+  display: flex;
+  flex-wrap: wrap;          /* wrap charts if screen too small */
+  gap: 20px;                /* spacing between charts */
+  justify-content:  flex-start; 
+  width: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.chart-card {
+  flex: 1 1 400px;          /* grow/shrink, min width 400px */
+  max-width: 600px;         /* optional max width for aesthetics */
+  background: #1b263b;
+  padding: 20px;
+  border-radius: 10px;
+  box-sizing: border-box;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+.chart-card canvas {
+  width: 100% !important;   /* fill card width */
+  height: 300px !important; /* adjust height as needed */
+}
+
+canvas {
+  width: 100% !important;
+  height: 300px !important; /* or any height you want */
+  image-rendering: optimizeQuality;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+
+
+>>>>>>> 10b94cc39a35299f0ced228262aca91cc3c9b5ea
