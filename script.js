@@ -2,6 +2,7 @@ let transactions = [];
 let chosenType = null;
 let streamList = ['Cash', 'UPI'];
 
+
 // ===== DOM Elements =====
 const addBtn = document.getElementById('addBtn');
 const choicePopup = document.getElementById('choicePopup');
@@ -77,20 +78,51 @@ streamList.forEach(s => { const opt=document.createElement('option'); opt.value=
 const otherOpt=document.createElement('option'); otherOpt.value='Others'; otherOpt.textContent='Others'; streamSelect.appendChild(otherOpt); }
 streamSelect.addEventListener('change', ()=>{ customStream.style.display = streamSelect.value==='Others'?'inline-block':'none'; });
 
-// ===== Save Transaction =====
-saveTransaction.addEventListener('click',()=>{
-  let category=categorySelect.value==='Others'?customCategory.value.trim():categorySelect.value||null;
-  if(category && !options[chosenType][category]) options[chosenType][category]=[];
-  let subcategory=subcategorySelect.value==='Others'?customSubcategory.value.trim():subcategorySelect.value||null;
-  if(category && subcategory && !options[chosenType][category].includes(subcategory)) options[chosenType][category].push(subcategory);
-  let stream=streamSelect.value==='Others'?customStream.value.trim():streamSelect.value||null;
-  if(stream && !streamList.includes(stream)) streamList.push(stream);
-  const date=dateInput.value, description=descriptionInput.value, amount=parseFloat(amountInput.value);
-  if(!chosenType || !amount) return alert('Type and Amount required');
-  transactions.push({type:chosenType,category,subcategory,stream,date,description,amount});
-  renderTransactions(); calculateTotals(); updateCharts();
-  addBar.style.display='none'; clearAddBar(); chosenType=null;
+window.addEventListener('DOMContentLoaded', () => {
+  const saveTransaction = document.getElementById('saveTransaction');
+
+  console.log('Save button element:', saveTransaction); // check if found
+
+  saveTransaction.addEventListener('click', () => {
+   
+    let category = categorySelect.value === 'Others' ? customCategory.value.trim() : categorySelect.value || null;
+    if (category && !options[chosenType][category]) options[chosenType][category] = [];
+
+    let subcategory = subcategorySelect.value === 'Others' ? customSubcategory.value.trim() : subcategorySelect.value || null;
+    if (category && subcategory && !options[chosenType][category].includes(subcategory)) options[chosenType][category].push(subcategory);
+
+    let stream = streamSelect.value === 'Others' ? customStream.value.trim() : streamSelect.value || null;
+    if (stream && !streamList.includes(stream)) streamList.push(stream);
+
+    const date = dateInput.value,
+          description = descriptionInput.value,
+          amount = parseFloat(amountInput.value);
+
+    if (!chosenType || !amount) return alert('Type and Amount required');
+
+    const transaction = { type: chosenType, category, subcategory, stream, date, description, amount };
+    transactions.push(transaction);
+
+    renderTransactions(); 
+    calculateTotals(); 
+    updateCharts();
+    addBar.style.display = 'none'; 
+    clearAddBar(); 
+    chosenType = null;
+
+    // ===== Save to Backend =====
+    const BACKEND_URL = 'http://localhost:5000';
+    fetch(`${BACKEND_URL}/add`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(transaction)
+    })
+    .then(res => res.json())
+    .then(data => console.log('Transaction saved to backend:', data))
+    .catch(err => console.error('Error saving to backend:', err));
+  });
 });
+
 
 // ===== Clear =====
 function clearAddBar(){
